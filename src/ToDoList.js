@@ -2,17 +2,18 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import ToDoTask from './ToDoTask';
+import ToDozakaz from './ToDozakaz';
 
 class ToDoList extends React.Component {
-	
-	render() {	
+
+	render() {
 		return (
 			<div className="card-hover-shadow-2x mb-3 card">
 				<div className="card-header-tab card-header">
 					<div className="card-header-title font-size-lg text-capitalize font-weight-normal">
-						<i className="fa fa-tasks"></i>&nbsp;Task List
+						<i className="fa fa-zakazs"></i>&nbsp; Список заказов 
 					</div>
+          
 				</div>
 			<div className="scroll-area-sm">
 				<perfect-scrollbar className="ps-show-limits">
@@ -20,11 +21,11 @@ class ToDoList extends React.Component {
 						<div className="ps-content">
 							<ul className=" list-group list-group-flush">
 							{
-								this.props.tasks.map((task) => {
-									return (
-										<ToDoTask task={task} key={task._id} />
-									)
-								})			
+								this.props.zakazs.map((zakaz)=>{
+									return(
+											<ToDozakaz zakaz={zakaz} key={zakaz._id} />
+										)
+								})
 							}
 							</ul>
 						</div>
@@ -32,16 +33,16 @@ class ToDoList extends React.Component {
 				</perfect-scrollbar>
 			</div>
 				<div className="d-block text-right card-footer">
-					<NavLink to='/add' className="btn btn-primary">Add task</NavLink>
+					<NavLink to='/add' className="btn btn-primary"> Добавить заказ </NavLink>
 				</div>
 			</div>
 		);
 	}
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state){
 	return {
-		tasks: [...state.tasks]
+		zakazs: [...state.zakaz]
 	}
 }
 

@@ -1,17 +1,19 @@
 import { combineReducers } from 'redux';
 
-import {TODO_ADD, TODO_ADD_ALL, TODO_DELETE, TODO_UPDATE_STATE} from './actions';
+import { TODO_ADD, TODO_ADD_ALL, TODO_DELETE, TODO_UPDATE_STATE} from './actions';
+
 
 function todo(state = [], action) {
 	switch (action.type) {
 		case TODO_ADD:
 			return [
-			...state, 
+				...state,
 				{
 					_id: action._id, 
 					name: action.name, 
 					description: action.description, 
-					done: false
+					done: false,
+					op: action.op
 				}
 			]
 		case TODO_ADD_ALL:
@@ -19,21 +21,21 @@ function todo(state = [], action) {
 				...action.todo_list
 			]
 		case TODO_DELETE:
-			return state.filter(function(task) {
-					return task._id !== action._id;
+			return state.filter(function(zakaz){
+				return zakaz._id !== action._id;
 			})
 		case TODO_UPDATE_STATE:
-			return state.map(function(task) {
-				if (task._id === action._id) {
-					return {...task, done: !task.done}
+			return state.map(function(zakaz){
+				if (zakaz._id === action._id){
+					return {...zakaz, done: !zakaz.done}
 				}
-				return task
+			return zakaz
 			})
 		default:
-			return state
+		return state
 	}
 }
 
 export default combineReducers({
-	tasks: todo
-})
+	zakaz: todo
+});
