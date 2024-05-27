@@ -18,6 +18,7 @@ const todo = (state = initialState, action) => {
             name: action.name,
             description: action.description,
             op: action.op,
+            price: action.price,
             done: false
           }
         ]
@@ -26,11 +27,6 @@ const todo = (state = initialState, action) => {
       return {
         ...state,
         zakaz: state.zakaz.filter(zakaz => zakaz._id !== action.id)
-      };
-	case REMOVE_FROM_CART:
-      return {
-        ...state,
-        cart: state.cart.filter(item => item._id !== action.id)
       };
     case UPDATE_TODO_STATE:
       return {
@@ -58,6 +54,11 @@ const todo = (state = initialState, action) => {
           cart: [...state.cart, { ...action.zakaz, quantity: 1 }]
         };
       }
+    case REMOVE_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter(item => item._id !== action.id)
+      };
     default:
       return state;
   }

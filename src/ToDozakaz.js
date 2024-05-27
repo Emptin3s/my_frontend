@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { todoDelete, todoUpdateState, addToCart } from './actions';
 
 class ToDozakaz extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.onStatusClick = this.onStatusClick.bind(this);
@@ -12,7 +12,7 @@ class ToDozakaz extends React.Component {
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
   }
 
-  onStatusClick(e){
+  onStatusClick(e) {
     e.preventDefault();
 
     fetch(`zakaz/${this.props.zakaz._id}`, {
@@ -23,31 +23,31 @@ class ToDozakaz extends React.Component {
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then((res)=>{
-      if(res.status === 200){
+    }).then((res) => {
+      if (res.status === 200) {
         this.props.dispatch(todoUpdateState(this.props.zakaz._id));
       }
     });
   }
 
-  onDeleteClick(e){
+  onDeleteClick(e) {
     e.preventDefault();
 
-    fetch(`zakaz/${this.props.zakaz._id}`,{
+    fetch(`zakaz/${this.props.zakaz._id}`, {
       method: 'DELETE'
-    }).then((res)=>{
-      if(res.status === 200){
+    }).then((res) => {
+      if (res.status === 200) {
         this.props.dispatch(todoDelete(this.props.zakaz._id));
       }
     });
   }
 
-  onAddToCartClick(e){
+  onAddToCartClick(e) {
     e.preventDefault();
     this.props.dispatch(addToCart(this.props.zakaz));
   }
 
-  render(){
+  render() {
     return (
       <li className="list-group-item">
         {this.props.zakaz.done ? <div className="todo-indicator bg-success"></div> : <div className="todo-indicator bg-focus"></div>}
@@ -57,6 +57,7 @@ class ToDozakaz extends React.Component {
               <div className="widget-heading">{this.props.zakaz.name}</div>
               <div className="widget-subheading">{this.props.zakaz.description}</div>
               <div className="widget-subheading">{this.props.zakaz.op}</div>
+              <div className="widget-subheading">Цена: {this.props.zakaz.price}</div>
             </div>
             <div className="widget-content-right">
               <button className="btn btn-outline-success" onClick={this.onStatusClick}>
