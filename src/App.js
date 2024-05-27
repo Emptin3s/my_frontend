@@ -10,12 +10,12 @@ import Cart from './Cart';
 import { todoAddAll } from './actions';  // убедитесь, что путь правильный
 
 class App extends React.Component {
-  componentDidMount(){
-    fetch('zakaz').then(function(res){
-      return res.json();
-    }).then((data)=>{
-      this.props.dispatch(todoAddAll(data));  // используем экшен
-    });
+  componentDidMount() {
+    fetch('/zakaz')
+      .then(res => res.json())
+      .then(data => {
+        this.props.dispatch(todoAddAll(data));  // используем экшен
+      });
   }
 
   render() {

@@ -3,7 +3,8 @@ export const ADD_TODO = 'ADD_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 export const UPDATE_TODO_STATE = 'UPDATE_TODO_STATE';
 export const ADD_TO_CART = 'ADD_TO_CART';
-export const ADD_TODO_ALL = 'ADD_TODO_ALL';  // добавили новый тип действия
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'; // Объявление и экспорт REMOVE_FROM_CART
+export const ADD_TODO_ALL = 'ADD_TODO_ALL';
 
 export const todoAdd = (id, name, description, op) => ({
   type: ADD_TODO,
@@ -28,7 +29,12 @@ export const addToCart = (zakaz) => ({
   zakaz
 });
 
-export const todoAddAll = (todos) => ({  // добавили новый экшен
+export const removeFromCart = (id) => ({
+  type: REMOVE_FROM_CART,
+  id
+});
+
+export const todoAddAll = (todos) => ({
   type: ADD_TODO_ALL,
   todos
 });

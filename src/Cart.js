@@ -2,8 +2,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { removeFromCart } from './actions';
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, removeFromCart }) => {
   return (
     <div className="container">
       <h2>Корзина</h2>
@@ -12,6 +13,7 @@ const Cart = ({ cart }) => {
           <li className="list-group-item" key={item._id}>
             <div>{item.name}</div>
             <div>Количество: {item.quantity}</div>
+            <button className="btn btn-danger" onClick={() => removeFromCart(item._id)}>Удалить</button>
           </li>
         ))}
       </ul>
@@ -26,4 +28,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = {
+  removeFromCart
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

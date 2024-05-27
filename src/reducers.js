@@ -1,5 +1,5 @@
 // reducers.js
-import { ADD_TODO, DELETE_TODO, UPDATE_TODO_STATE, ADD_TO_CART, ADD_TODO_ALL } from './actions';
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO_STATE, ADD_TO_CART, REMOVE_FROM_CART, ADD_TODO_ALL } from './actions';
 
 const initialState = {
   zakaz: [],
@@ -27,15 +27,23 @@ const todo = (state = initialState, action) => {
         ...state,
         zakaz: state.zakaz.filter(zakaz => zakaz._id !== action.id)
       };
+	case REMOVE_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter(item => item._id !== action.id)
+      };
     case UPDATE_TODO_STATE:
       return {
         ...state,
         zakaz: state.zakaz.map(zakaz => zakaz._id === action.id ? { ...zakaz, done: !zakaz.done } : zakaz)
       };
     case ADD_TODO_ALL:
+      const newZakaz = action.todos.filter(todo => 
+        !state.zakaz.some(existingTodo => existingTodo._id === todo._id)
+      );
       return {
         ...state,
-        zakaz: [...state.zakaz, ...action.todos]
+        zakaz: [...state.zakaz, ...newZakaz]
       };
     case ADD_TO_CART:
       const itemInCart = state.cart.find(item => item._id === action.zakaz._id);
